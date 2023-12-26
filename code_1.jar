@@ -1,0 +1,27 @@
+import java.io.*;
+
+public class URPCExample {
+    public static void main(String[] args) {
+        try {
+            // Executa o comando "urpc list" no prompt de comando
+            Process p = Runtime.getRuntime().exec("cmd /c urpc list");
+
+            // Cria um BufferedReader para ler a saída do comando
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            // Lê a saída linha por linha e imprime na tela
+            String line;
+            while ((line = input.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Aguarda o término do comando e captura o código de saída
+            int exitCode = p.waitFor();
+
+            // Imprime o código de saída na tela
+            System.out.println("Código de saída: " + exitCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
